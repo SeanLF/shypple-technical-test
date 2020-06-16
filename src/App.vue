@@ -15,12 +15,18 @@
       <label for="grid_size">Grid length</label>
       <input type="number" name="grid_size" id="grid_size" v-bind:value="gridSize">
     </div>
+    <Grid v-bind:gridSize="gridSize"></Grid>
   </div>
 </template>
 
 <script>
+import Grid from './components/Grid.vue';
+
 export default {
   name: 'App',
+  components: {
+    Grid,
+  },
   data: () => ({
     gridSize: 3,
   }),

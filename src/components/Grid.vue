@@ -52,7 +52,7 @@ export default {
     },
     // Counts the number of distinct Fibonacci numbers in the grid
     fibonacciUniqueCount() {
-      return [...new Set(this.fibonacciCells().map((cell) => cell.count))].length;
+      return [...new Set(this.flatGrid.map((cell) => cell.count))].length;
     },
   },
   methods: {
@@ -84,31 +84,29 @@ export default {
       }
       return this.isFibonacci(n);
     },
-    cellContainsFibonacci(cell) {
-      return this.isFibonacci(cell.count);
-    },
-    // Cells in the grid that have a count that is a Fibonacci number
-    fibonacciCells(flatGrid = this.flatGrid) {
-      return flatGrid.filter(this.cellContainsFibonacci);
-    },
-    findFibonacciSequences(list = this.fibonacciCells()) {
+    findFibonacciSequences(list = this.flatGrid) {
+      // Filter out nulls
+      const listNoNulls = list.filter((cell) => cell.count !== null);
       // Fibonacci sequences
       const toFlashGreen = [[]];
       // Iterate through all fibonacci numbers in the grid
-      while (list.length > 0) {
+      while (listNoNulls.length > 0) {
         // Current group to append to
         const currentGroup = toFlashGreen[toFlashGreen.length - 1];
         // Ensure current group has the last 2 elements to sum
-        while (currentGroup.length < 2) currentGroup.push(list.shift());
+        while (currentGroup.length < 2) currentGroup.push(listNoNulls.shift());
         // Current cell (starts at the 3rd cell in the grid)
-        const cell = list.shift();
+        const cell = listNoNulls.shift();
         if (typeof cell === 'undefined') break;
-        const sumOfLastTwoElements = currentGroup.slice(-2).reduce((a, b) => a.count + b.count);
+        const [secondLast, last] = currentGroup.slice(-2).map((c) => c.count);
+        const sumOfLastTwoElements = secondLast + last;
         /* If the last two elements equal the current cell count and is a fibonacci number, append
         *  Otherwise if currentGroup contains at least 5 elements, make a new group
         *  Otherwise clear currentGroup and add the current Fibonacci number to it
         */
         if (this.fibonacciSequence.includes(sumOfLastTwoElements)
+            && this.fibonacciSequence.includes(secondLast)
+            && this.fibonacciSequence.includes(last)
             && sumOfLastTwoElements === cell.count
         ) {
           currentGroup.push(cell);
@@ -134,7 +132,7 @@ export default {
       if (this.fibonacciUniqueCount >= 4) {
         // Find sequences of 5 or more consecutive fibonacci numbers
         let toFlashGreen = new Set(this.findFibonacciSequences());
-        const forCol = this.findFibonacciSequences(this.fibonacciCells(this.flatGridByColumn));
+        const forCol = this.findFibonacciSequences(this.flatGridByColumn);
         forCol.forEach((cell) => toFlashGreen.add(cell));
         toFlashGreen = [...toFlashGreen];
         // Clear their values, the cell component will handle the animation

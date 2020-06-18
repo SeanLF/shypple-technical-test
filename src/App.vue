@@ -3,29 +3,31 @@
     <header>
       <h1>Shypple Technical Test</h1>
     </header>
-    <main>
-      <div class="requirements">
-        <h2>Instructions</h2>
-        <p>
-          Create a 50x50 grid. Whenever you click on a cell in this grid, 1 is added to all cells
-          in the same row and column. If a cell was empty, set it to 1. Every change to a cell
-          should cause the cell to briefly light up yellow. If at least 5 successive numbers in
-          the cells form a part of a Fibonacci sequence, shortly light these cells up green and
-          then empty these cells. Use any framework or programming language you like.
-        </p>
-      </div>
-      <div class="parameters">
-        <h2>Parameters</h2>
-        <label for="grid-size">Grid size:</label>
-        <input
-          type="number"
-          name="grid-size"
-          id="grid-size"
-          v-model.number="gridSize"
-          min="0"
-          max="100"
-        />
-      </div>
+    <main class="main">
+      <aside class="aside">
+        <div class="requirements">
+          <h2>Instructions</h2>
+          <p>
+            Create a 50x50 grid. Whenever you click on a cell in this grid, 1 is added to all cells
+            in the same row and column. If a cell was empty, set it to 1. Every change to a cell
+            should cause the cell to briefly light up yellow. If at least 5 successive numbers in
+            the cells form a part of a Fibonacci sequence, shortly light these cells up green and
+            then empty these cells. Use any framework or programming language you like.
+          </p>
+        </div>
+        <div class="parameters">
+          <h2>Parameters</h2>
+          <label for="grid-size">Grid size:</label>
+          <input
+            type="number"
+            name="grid-size"
+            id="grid-size"
+            v-model.number="gridSize"
+            min="0"
+            max="100"
+          />
+        </div>
+      </aside>
       <Grid :gridSize="gridSize"></Grid>
     </main>
   </div>
@@ -53,14 +55,24 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+@media only screen and (min-width: 1200px) {
+  .main {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .aside {
+    max-width: 300px;
+  }
+}
 h2 {
   font-size: 1rem;
+  margin-bottom: 0.1rem;
 }
 .requirements p {
   font-family: monospace;
   margin: auto 1rem;
   border-left: 0.3rem solid #aaa;
-  padding-left: 0.5rem;
+  padding: 0.5rem 0.5rem 0;
 }
 .parameters {
   margin: 1rem auto;

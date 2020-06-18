@@ -1,5 +1,5 @@
 <template>
-  <div class='cell' ref="cellEl" :style="style" @click="$emit('clicked', cell.row, cell.column)">
+  <div class='cell' ref="cellEl" @click="$emit('clicked', cell.row, cell.column)">
     <span class='value'>{{ cell.count }}</span>
   </div>
 </template>
@@ -11,12 +11,6 @@ export default {
   name: 'Cell',
   props: {
     cell: Object,
-    gridSize: Number,
-  },
-  computed: {
-    style() {
-      return `width: calc(${100 / this.gridSize}% - 2px`;
-    },
   },
   watch: {
     cell: {
@@ -33,15 +27,18 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 .cell {
   height: 1rem;
   width: 1rem;
   border: 1px solid #eee;
   justify-content: center;
   user-select: none;
+  display: flex;
+  justify-content: center;
 }
 .value {
   text-align: center;
+  font-size: xx-small;
 }
 </style>

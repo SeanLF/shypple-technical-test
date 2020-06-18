@@ -1,26 +1,20 @@
 <template>
   <div class="grid">
-    <div class="cells">
-      <Cell
-        v-for="cell in flatGrid"
-        :key="cell.index"
-        :cell="cell"
-        :gridSize="gridSize"
-        @clicked="clicked"
-      ></Cell>
+    <div class="rows">
+      <Row v-for="(row, index) in grid" :key="index" :row="row" @clicked="clicked"></Row>
     </div>
   </div>
 </template>
 
 <script>
-import Cell from './Cell.vue';
+import Row from './Row.vue';
 
 const matrixColumn = (matrix, column) => matrix.map((row) => row[column]);
 
 export default {
   name: 'Grid',
   components: {
-    Cell,
+    Row,
   },
   data: () => ({
     grid: null,
@@ -30,8 +24,8 @@ export default {
     gridSize: Number,
   },
   watch: {
-    gridSize: {
-      immediate: true,
+    gridSize: { // watch gridSize for changes
+      immediate: true, // needed to create the grid on initial load
       handler() {
         this.grid = [...Array(this.gridSize).keys()].map((row) => (
           [...Array(this.gridSize).keys()].map((column) => ({
@@ -58,7 +52,7 @@ export default {
     },
     // Counts the number of distinct Fibonacci numbers in the grid
     fibonacciUniqueCount() {
-      return [...new Set(this.fibonacciCells(this.flatGrid).map((cell) => cell.count))].length;
+      return [...new Set(this.fibonacciCells().map((cell) => cell.count))].length;
     },
   },
   methods: {
@@ -152,11 +146,3 @@ export default {
   },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.cells {
-  display: flex;
-  flex-flow: row wrap;
-}
-</style>

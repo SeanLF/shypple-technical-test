@@ -52,7 +52,8 @@ export default {
     },
     // Counts the number of distinct Fibonacci numbers in the grid
     fibonacciUniqueCount() {
-      return [...new Set(this.flatGrid.map((cell) => cell.count))].length;
+      return [...new Set(this.flatGrid.filter((cell) => this.isFibonacci(cell.count))
+        .map((cell) => cell.count))].length;
     },
   },
   methods: {
@@ -111,7 +112,7 @@ export default {
         ) {
           currentGroup.push(cell);
         } else if (currentGroup.length >= 5) {
-          toFlashGreen.push([]);
+          toFlashGreen.push([cell]);
         } else {
           while (currentGroup.length > 1) currentGroup.shift();
           currentGroup.push(cell);

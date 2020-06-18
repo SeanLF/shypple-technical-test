@@ -1,10 +1,12 @@
 <template>
-  <div class='cell' @click="$emit('clicked', cell.row, cell.column)" :style="style">
+  <div class='cell' ref="cellEl" :style="style" @click="$emit('clicked', cell.row, cell.column)">
     <span class='value'>{{ cell.count }}</span>
   </div>
 </template>
 
 <script>
+import { TimelineLite } from 'gsap';
+
 export default {
   name: 'Cell',
   props: {
@@ -14,6 +16,17 @@ export default {
   computed: {
     style() {
       return `width: calc(${100 / this.gridSize}% - 2px`;
+    },
+  },
+  watch: {
+    cell: {
+      deep: true,
+      handler(cell) {
+        const { cellEl } = this.$refs;
+        const timeline = new TimelineLite();
+        timeline.to(cellEl, 0.5, { background: cell.count === null ? 'green' : 'yellow' });
+        timeline.to(cellEl, 0.5, { background: 'initial' });
+      },
     },
   },
 };

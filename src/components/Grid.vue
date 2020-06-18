@@ -39,7 +39,6 @@ export default {
             count: null,
             row,
             column,
-            color: 'yellow',
           }))
         ));
       },

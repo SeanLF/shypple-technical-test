@@ -4008,6 +4008,11 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.4.tgz#2256bde14d3632958c465ebc96dc467ca07a29fb"
   integrity sha512-WjKPNJF79dtJAVniUlGGWHYGz2jWxT6VhN/4m1NdkbZ2nOsEF+cI1Edgql5zCRhs/VsQYRvrXctxktVXZUkixw==
 
+gsap@^3.3.3:
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/gsap/-/gsap-3.3.3.tgz#20121971bf47858cb600798ba9fbf83e3acdc745"
+  integrity sha512-89D0Av+UIajcfzEUeZFl1h87dJc0xVIvbJ05+wVbH3ernHzZiupb7CxWXpxxo652jZfmsjwM3jyc8bh089dKUg==
+
 gzip-size@^5.0.0:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/gzip-size/-/gzip-size-5.1.1.tgz#cb9bee692f87c0612b232840a873904e4c135274"

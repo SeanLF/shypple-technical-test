@@ -12,23 +12,25 @@ export default {
   props: {
     gridSize: Number,
   },
+  watch: {
+    gridSize: {
+      immediate: true,
+      handler() {
+        this.grid = [...Array(this.gridSize).keys()].map((row) => (
+          [...Array(this.gridSize).keys()].map((column) => ({
+            index: row * this.gridSize + column,
+            count: null,
+            row,
+            column,
+            color: 'yellow',
+          }))
+        ));
+      },
+    },
+  },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
 </style>

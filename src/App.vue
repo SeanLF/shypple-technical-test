@@ -1,21 +1,18 @@
 <template>
   <div id="app">
-    <h1>Shyyple Technical Test</h1>
-    <div class="requirements">
-      <ul>
-        <li>Build a 50x50 grid</li>
-        <li>
-          Increment the cell count by 1 on click, as well as the cells in the same row and column
-        </li>
-        <li>Briefly flash a cell yellow if its content changes</li>
-        <li>Briefly flash a cell green if it's in a fibonacci sequence of 5 or more</li>
-      </ul>
-    </div>
+    <h1>Shypple Technical Test</h1>
+    <p class="requirements">
+      Create a 50x50 grid. Whenever you click on a cell in this grid, 1 is added to all cells in the
+      same row and column. If a cell was empty, set it to 1. Every change to a cell should cause the
+      cell to briefly light up yellow. If at least 5 successive numbers in the cells form a part of
+      a Fibonacci sequence, shortly light these cells up green and then empty these cells. Use any
+      framework or programming language you like.
+    </p>
     <div class="parameters">
-      <label for="grid_size">Grid length</label>
-      <input type="number" name="grid_size" id="grid_size" v-bind:value="gridSize">
+      <label for="grid-size">Grid size:</label>
+      <input type="number" name="grid-size" id="grid-size" v-model.number="gridSize" />
     </div>
-    <Grid v-bind:gridSize="gridSize"></Grid>
+    <Grid :gridSize="gridSize"></Grid>
   </div>
 </template>
 
@@ -24,12 +21,12 @@ import Grid from './components/Grid.vue';
 
 export default {
   name: 'App',
+  data: () => ({
+    gridSize: 50,
+  }),
   components: {
     Grid,
   },
-  data: () => ({
-    gridSize: 3,
-  }),
 };
 </script>
 

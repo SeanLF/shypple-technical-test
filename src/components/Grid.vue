@@ -6,6 +6,7 @@
         :key="cell.index"
         :cell="cell"
         :gridSize="gridSize"
+        @clicked="clicked"
       ></Cell>
     </div>
   </div>
@@ -44,6 +45,26 @@ export default {
   computed: {
     flatGrid() {
       return this.grid.flat();
+    },
+  },
+  methods: {
+    cellsInSameColumnOrRow(rowIndex, columnIndex) {
+      // Use a set to prevent duplicate cell row and column intersection
+      // Add the current row to the results
+      const results = new Set(...[this.grid[rowIndex]]);
+      // Iterate through the rows and add the column to the results set
+      [...Array(this.gridSize).keys()].forEach((i) => {
+        results.add(this.grid[i][columnIndex]);
+      });
+      // Return the unique cells as an array
+      return [...results];
+    },
+    clicked(rowIndex, columnIndex) {
+      // Get the cells in the same row and column and increment them each by 1
+      const cellsToIncrement = this.cellsInSameColumnOrRow(rowIndex, columnIndex);
+      for (let i = 0; i < cellsToIncrement.length; i += 1) {
+        cellsToIncrement[i].count += 1;
+      }
     },
   },
 };

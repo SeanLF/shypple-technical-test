@@ -1,5 +1,5 @@
 <template>
-  <div class='cell' :style="style">
+  <div class='cell' @click="$emit('clicked', cell.row, cell.column)" :style="style">
     <span class='value'>{{ cell.count }}</span>
   </div>
 </template>

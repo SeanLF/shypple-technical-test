@@ -1,11 +1,24 @@
 <template>
   <div class="grid">
+    <div class="cells">
+      <Cell
+        v-for="cell in flatGrid"
+        :key="cell.index"
+        :cell="cell"
+        :gridSize="gridSize"
+      ></Cell>
+    </div>
   </div>
 </template>
 
 <script>
+import Cell from './Cell.vue';
+
 export default {
   name: 'Grid',
+  components: {
+    Cell,
+  },
   data: () => ({
     grid: null,
   }),
@@ -28,9 +41,18 @@ export default {
       },
     },
   },
+  computed: {
+    flatGrid() {
+      return this.grid.flat();
+    },
+  },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.cells {
+  display: flex;
+  flex-flow: row wrap;
+}
 </style>

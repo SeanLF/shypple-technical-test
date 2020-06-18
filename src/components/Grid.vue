@@ -15,6 +15,8 @@
 <script>
 import Cell from './Cell.vue';
 
+const matrixColumn = (matrix, column) => matrix.map((row) => row[column]);
+
 export default {
   name: 'Grid',
   components: {
@@ -48,6 +50,12 @@ export default {
     // Flattens the grid
     flatGrid() {
       return this.grid.flat();
+    },
+    gridByColumn() {
+      return this.grid.map((_, i, grid) => matrixColumn(grid, i));
+    },
+    flatGridByColumn() {
+      return this.gridByColumn.flat();
     },
     // Counts the number of distinct Fibonacci numbers in the grid
     fibonacciUniqueCount() {
@@ -132,7 +140,10 @@ export default {
       // If the grid contains at least 4 distinct fibonacci numbers (two 1s)
       if (this.fibonacciUniqueCount >= 4) {
         // Find sequences of 5 or more consecutive fibonacci numbers
-        const toFlashGreen = this.findFibonacciSequences();
+        let toFlashGreen = new Set(this.findFibonacciSequences());
+        const forCol = this.findFibonacciSequences(this.fibonacciCells(this.flatGridByColumn));
+        forCol.forEach((cell) => toFlashGreen.add(cell));
+        toFlashGreen = [...toFlashGreen];
         // Clear their values, the cell component will handle the animation
         for (let idx = 0; idx < toFlashGreen.length; idx += 1) {
           toFlashGreen[idx].count = null;

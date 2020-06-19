@@ -105,17 +105,19 @@ export default {
         *  Otherwise if currentGroup contains at least 5 elements, make a new group
         *  Otherwise clear currentGroup and add the current Fibonacci number to it
         */
-        if (this.fibonacciSequence.includes(sumOfLastTwoElements)
-            && this.fibonacciSequence.includes(secondLast)
+        if (this.fibonacciSequence.includes(secondLast)
             && this.fibonacciSequence.includes(last)
+            && this.fibonacciSequence.includes(sumOfLastTwoElements)
             && sumOfLastTwoElements === cell.count
         ) {
           currentGroup.push(cell);
         } else if (currentGroup.length >= 5) {
-          toFlashGreen.push([cell]);
+          const toPush = this.fibonacciSequence.includes(cell.count) ? [cell] : [];
+          toFlashGreen.push(toPush);
         } else {
-          while (currentGroup.length > 1) currentGroup.shift();
-          currentGroup.push(cell);
+          const length = this.fibonacciSequence.includes(last) ? 1 : 0;
+          while (currentGroup.length > length) currentGroup.shift();
+          if (this.fibonacciSequence.includes(cell.count)) currentGroup.push(cell);
         }
       }
       // If the last group doesn't have at least 5 elements, get rid of it

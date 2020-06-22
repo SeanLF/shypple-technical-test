@@ -17,18 +17,65 @@
         </div>
         <div class="parameters">
           <h2>Parameters</h2>
-          <label for="grid-size">Grid size:</label>
-          <input
-            type="number"
-            name="grid-size"
-            id="grid-size"
-            v-model.number="gridSize"
-            min="0"
-            max="100"
-          />
+          <div class="grid-size">
+            <label for="grid-size">Grid size:</label>
+            <input
+              type="number"
+              name="grid-size"
+              id="grid-size"
+              v-model.number="gridSize"
+              min="5"
+              max="100"
+            />
+          </div>
+          <div class="search-params">
+            <h3>Search:</h3>
+            <div class="search-in-row">
+              <label for="search-in-row">➡️</label>
+              <input
+                type="checkbox"
+                name="search-in-row"
+                id="search-in-row"
+                v-model="searchInRow"
+              />
+            </div>
+            <div class="search-in-column">
+              <label for="search-in-column">⬇️</label>
+              <input
+                type="checkbox"
+                name="search-in-column"
+                id="search-in-column"
+                v-model="searchInColumn"
+              />
+            </div>
+            <div class="search-in-row-reverse">
+              <label for="search-in-row-reverse">⬅️</label>
+              <input
+                type="checkbox"
+                name="search-in-row-reverse"
+                id="search-in-row-reverse"
+                v-model="searchInRowReverse"
+              />
+            </div>
+            <div class="search-in-column-reverse">
+              <label for="search-in-column-reverse">⬆️</label>
+              <input
+                type="checkbox"
+                name="search-in-column-reverse"
+                id="search-in-column-reverse"
+                v-model="searchInColumnReverse"
+              />
+            </div>
+          </div>
         </div>
       </aside>
-      <Grid :gridSize="gridSize"></Grid>
+      <Grid
+        :gridSize="gridSize"
+        :searchInRow="searchInRow"
+        :searchInColumn="searchInColumn"
+        :searchInRowReverse="searchInRowReverse"
+        :searchInColumnReverse="searchInColumnReverse"
+      ></Grid>
     </main>
   </div>
 </template>
@@ -40,6 +87,10 @@ export default {
   name: 'App',
   data: () => ({
     gridSize: 50,
+    searchInRow: true,
+    searchInColumn: true,
+    searchInRowReverse: true,
+    searchInColumnReverse: true,
   }),
   components: {
     Grid,
@@ -68,6 +119,10 @@ h2 {
   font-size: 1rem;
   margin-bottom: 0.1rem;
 }
+h3 {
+  font-size: 0.9rem;
+  margin-bottom: 0.1rem;
+}
 .requirements p {
   font-family: monospace;
   margin: auto 1rem;
@@ -83,5 +138,9 @@ h2 {
 }
 .parameters input {
   width: 3rem;
+}
+.search-params > div {
+  display: flex;
+  justify-content: center;
 }
 </style>

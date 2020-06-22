@@ -22,6 +22,10 @@ export default {
   }),
   props: {
     gridSize: Number,
+    searchInRow: Boolean,
+    searchInColumn: Boolean,
+    searchInRowReverse: Boolean,
+    searchInColumnReverse: Boolean,
   },
   watch: {
     gridSize: { // watch gridSize for changes
@@ -49,6 +53,12 @@ export default {
     },
     flatGridByColumn() {
       return this.gridByColumn.flat();
+    },
+    flatGridReverse() {
+      return this.flatGrid.slice().reverse();
+    },
+    flatGridByColumnReverse() {
+      return this.flatGridByColumn.slice().reverse();
     },
     // Counts the number of distinct Fibonacci numbers in the grid
     fibonacciUniqueCount() {
@@ -134,10 +144,14 @@ export default {
       // If the grid contains at least 4 distinct fibonacci numbers (two 1s)
       if (this.fibonacciUniqueCount >= 4) {
         // Find sequences of 5 or more consecutive fibonacci numbers
-        let toFlashGreen = new Set(this.findFibonacciSequences());
-        const forCol = this.findFibonacciSequences(this.flatGridByColumn);
-        forCol.forEach((cell) => toFlashGreen.add(cell));
-        toFlashGreen = [...toFlashGreen];
+        const searchParams = [];
+        let toFlashGreen = [];
+        if (this.searchInRow) searchParams.push(this.flatGrid);
+        if (this.searchInColumn) searchParams.push(this.flatGridByColumn);
+        if (this.searchInRowReverse) searchParams.push(this.flatGridReverse);
+        if (this.searchInColumnReverse) searchParams.push(this.flatGridByColumnReverse);
+        searchParams.forEach((grid) => toFlashGreen.push(this.findFibonacciSequences(grid)), this);
+        toFlashGreen = [...new Set(toFlashGreen.flat())];
         // Clear their values, the cell component will handle the animation
         for (let idx = 0; idx < toFlashGreen.length; idx += 1) {
           toFlashGreen[idx].count = null;

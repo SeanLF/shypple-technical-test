@@ -54,10 +54,22 @@ The last option was implemented, and searching is possible by row, by column, an
 yarn install
 ```
 
+or
+
+```bash
+dip provision
+```
+
 ### Compiles and hot-reloads for development
 
 ```bash
 yarn serve
+```
+
+or
+
+```bash
+dip up serve
 ```
 
 ### Compiles and minifies for production
@@ -71,3 +83,14 @@ yarn build
 ```bash
 yarn lint
 ```
+
+### Dockerisation
+
+- I used the [Ruby on Whales](https://evilmartians.com/chronicles/ruby-on-whales-docker-for-ruby-rails-development) guide by [Evil Martians](https://evilmartians.com/) to dockerize my app. I also used the [dip.yml](https://github.com/evilmartians/terraforming-rails/blob/master/examples/dockerdev/dip.yml) tool that they recommend.
+
+- I opted for the npm-alpine image to limit the size of the container.
+
+#### System dependencies
+
+- docker
+- (optional) dip.yml

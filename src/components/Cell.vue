@@ -35,7 +35,6 @@ export default {
   justify-content: center;
   user-select: none;
   display: flex;
-  justify-content: center;
 }
 .value {
   text-align: center;
